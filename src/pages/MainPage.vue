@@ -1,9 +1,10 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import ButtonComponent from "../components/ButtonComponent/ButtonComponent.vue";
+import DropDownList from "@/components/DropDownList/DropDownList.vue";
 
 export default defineComponent({
-  components: {ButtonComponent},
+  components: {DropDownList, ButtonComponent},
   setup() {
 
   }
@@ -12,6 +13,7 @@ export default defineComponent({
 
 <template>
 <div>
+  <DropDownList></DropDownList>
   <ButtonComponent></ButtonComponent>
 </div>
 </template>
