@@ -1,15 +1,20 @@
 <script lang="ts">
 import {defineComponent} from "vue";
+import {useEntitiesStore} from "@/store/entities-store";
 
 export default defineComponent({
   setup() {
+    const entitiesStore = useEntitiesStore();
 
+    return {
+      entitiesStore
+    }
   }
 })
 </script>
 
 <template>
-  <button class="button">Создать</button>
+  <button class="button" :class="{active: entitiesStore.getIsActiveButton, disabled: !entitiesStore.getIsActiveButton }" >Создать</button>
 </template>
 
 <style scoped>

@@ -2,24 +2,29 @@
 import {computed, ComputedRef, defineComponent, Ref, ref} from "vue";
 import {dropDown} from "@/mock/dropdown-mock";
 import {IDropdown} from "@/models/dropdown-model";
+import {useEntitiesStore} from "@/store/entities-store";
 
 export default defineComponent({
-  methods: {
-    dropDown() {
-      return dropDown
-    }
-  },
   setup() {
       const placeHolder: ComputedRef<string> = computed(() => {
         const foundElement = dropDown.find((element: IDropdown) => element.isSelected);
        return  foundElement ? foundElement.name : 'Не выбрано'
       })
 
-    const isTriggeredDropDown: Ref<false, false> = ref(false);
+    const entitiesStore = useEntitiesStore();
+
+    const isTriggeredDropDown: Ref<boolean, boolean> = ref(false);
+
+      function selectOption(key: string) {
+          entitiesStore.selectEntities(key);
+          isTriggeredDropDown.value = false;
+      }
 
     return {
       placeHolder,
-      isTriggeredDropDown
+      isTriggeredDropDown,
+      entitiesStore,
+      selectOption
     }
   }
 })
@@ -33,7 +38,7 @@ export default defineComponent({
     </div>
 
     <div class="dropdown-panel" v-if="isTriggeredDropDown">
-      <div class="option" v-for="(option) in dropDown()" :key="option.key">
+      <div class="option" v-for="(option) in entitiesStore.getEntities" :key="option.key" @click="selectOption(option.key)">
         <img src="../../assets/icon/select.png" alt="select">
         <span>
         {{option.name}}
@@ -60,8 +65,6 @@ export default defineComponent({
       margin-right: auto;
 
     }
-
-
 
     img {
       margin-right: 0;
