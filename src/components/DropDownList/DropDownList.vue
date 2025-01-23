@@ -1,15 +1,9 @@
 <script lang="ts">
-import {computed, ComputedRef, defineComponent, Ref, ref} from "vue";
-import {dropDown} from "@/mock/dropdown-mock";
-import {IDropdown} from "@/models/dropdown-model";
+import {defineComponent, Ref, ref} from "vue";
 import {useEntitiesStore} from "@/store/entities-store";
 
 export default defineComponent({
   setup() {
-      const placeHolder: ComputedRef<string> = computed(() => {
-        const foundElement = dropDown.find((element: IDropdown) => element.isSelected);
-       return  foundElement ? foundElement.name : 'Не выбрано'
-      })
 
     const entitiesStore = useEntitiesStore();
 
@@ -21,7 +15,6 @@ export default defineComponent({
       }
 
     return {
-      placeHolder,
       isTriggeredDropDown,
       entitiesStore,
       selectOption
@@ -33,7 +26,7 @@ export default defineComponent({
 <template>
   <div>
     <div class="placeholder">
-      <span>{{placeHolder}}</span>
+      <span>{{entitiesStore.getPlaceholder}}</span>
       <img src="../../assets/icon/Chevron.svg" alt="arrow-down" @click="isTriggeredDropDown = !isTriggeredDropDown"/>
     </div>
 

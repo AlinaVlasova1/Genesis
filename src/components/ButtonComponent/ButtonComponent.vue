@@ -22,18 +22,17 @@ export default defineComponent({
     padding: 10px;
     border-radius: 4px;
     font-weight: bold;
+  }
 
-    .active {
-      background-color: #4c8bf7;
-      border-color: #4077d6;
-      color: white;
-    }
+  .active {
+    background-color: #4c8bf7;
+    border-color: #4077d6;
+    color: white;
+  }
 
-    .disabled {
-      background-color: white;
-      border-color: #bbbbbb;
-      color: black;
-    }
-
+  .disabled {
+    background-color: white;
+    border-color: #bbbbbb;
+    color: black;
   }
 </style>

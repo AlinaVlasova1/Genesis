@@ -15,6 +15,11 @@ export const useEntitiesStore = defineStore('entitiesStore', {
         getIsActiveButton: (state) => {
             const notSelectedOption = state.entities.find((element: IDropdown) => element.key === 'not-selected')
             return !(notSelectedOption && notSelectedOption.isSelected);
+        },
+        getPlaceholder: (state) => {
+            const foundElement = state.entities.find((element: IDropdown) => element.isSelected);
+            console.log('foundElement', foundElement)
+            return  foundElement ? foundElement.name : 'Не выбрано'
         }
     },
     actions: {
@@ -23,7 +28,9 @@ export const useEntitiesStore = defineStore('entitiesStore', {
                 element.isSelected = element.key === key;
                 return element;
             })
+            console.log(newEntities);
             this.entities = [...newEntities];
+            console.log(this.entities);
         }
     }
 })
