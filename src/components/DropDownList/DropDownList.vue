@@ -10,7 +10,7 @@ export default defineComponent({
     const isTriggeredDropDown: Ref<boolean, boolean> = ref(false);
 
       function selectOption(key: string) {
-          entitiesStore.selectEntities(key);
+          entitiesStore.selectOptions(key);
           isTriggeredDropDown.value = false;
       }
 
@@ -31,7 +31,7 @@ export default defineComponent({
     </div>
 
     <div class="dropdown-panel" v-if="isTriggeredDropDown">
-      <div class="option" v-for="(option) in entitiesStore.getEntities" :key="option.key" @click="selectOption(option.key)">
+      <div class="option" v-for="(option) in entitiesStore.getOptions" :key="option.key" @click="selectOption(option.key)">
         <img src="../../assets/icon/select.png" alt="select">
         <span>
         {{option.name}}

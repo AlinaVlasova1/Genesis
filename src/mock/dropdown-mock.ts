@@ -8,17 +8,17 @@ export const dropDown: IDropdown[] = [
     },
     {
         name: 'Сделка',
-        key: 'deal',
+        key: 'leads',
         isSelected: false
     },
     {
         name: 'Контакт',
-        key: 'contact',
+        key: 'contacts',
         isSelected: false
     },
     {
         name: 'Компания',
-        key: 'company',
+        key: 'companies',
         isSelected: false
     },
 ]

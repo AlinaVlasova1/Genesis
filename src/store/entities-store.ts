@@ -1,36 +1,46 @@
 import {defineStore} from "pinia";
 import {dropDown} from "@/mock/dropdown-mock";
 import {IDropdown} from "@/models/dropdown-model";
+import {IEntity} from "@/models/entity-model";
 
 export const useEntitiesStore = defineStore('entitiesStore', {
     state: () => {
         return {
-            entities: structuredClone(dropDown),
+            entityOptions: structuredClone(dropDown),
+            createdEntities: [] as IEntity[],
         };
     },
     getters: {
-        getEntities: (state) => {
-            return state.entities
+        getOptions: (state) => {
+            return state.entityOptions
         },
         getIsActiveButton: (state) => {
-            const notSelectedOption = state.entities.find((element: IDropdown) => element.key === 'not-selected')
+            const notSelectedOption = state.entityOptions.find((element: IDropdown) => element.key === 'not-selected')
             return !(notSelectedOption && notSelectedOption.isSelected);
         },
         getPlaceholder: (state) => {
-            const foundElement = state.entities.find((element: IDropdown) => element.isSelected);
-            console.log('foundElement', foundElement)
+            const foundElement = state.entityOptions.find((element: IDropdown) => element.isSelected);
             return  foundElement ? foundElement.name : 'Не выбрано'
+        },
+        getKeySelectedEntity: (state) => {
+            const foundEntity = state.entityOptions.find((element: IDropdown) => element.isSelected)
+            return foundEntity ? foundEntity.key : null
+        },
+        getNameSelectedEntity: (state) => {
+            const foundEntity = state.entityOptions.find((element: IDropdown) => element.isSelected)
+            return foundEntity ? foundEntity.name : 'Не выбрано'
         }
     },
     actions: {
-        selectEntities (key: string) {
-            const newEntities = this.entities.map((element: IDropdown) => {
+        selectOptions (key: string) {
+            const newOptions = this.entityOptions.map((element: IDropdown) => {
                 element.isSelected = element.key === key;
                 return element;
             })
-            console.log(newEntities);
-            this.entities = [...newEntities];
-            console.log(this.entities);
+            this.entityOptions = [...newOptions];
+        },
+        addEntity (entity: IEntity) {
+            this.createdEntities.push(entity);
         }
     }
 })
