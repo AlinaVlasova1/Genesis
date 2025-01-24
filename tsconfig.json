@@ -36,8 +36,6 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "node_modules/@types/node/globals.d.ts",
-    "node_modules/@types/node/globals.d.ts",
-    "node_modules/@types/node/globals.d.ts"
   ],
   "exclude": [
     "node_modules"

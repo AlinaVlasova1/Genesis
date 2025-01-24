@@ -4,18 +4,16 @@ import ButtonComponent from "../components/ButtonComponent/ButtonComponent.vue";
 import DropDownList from "@/components/DropDownList/DropDownList.vue";
 
 export default defineComponent({
+  name: "MainPage",
   components: {DropDownList, ButtonComponent},
-  setup() {
-
-  }
 })
 </script>
 
 <template>
-<div>
-  <DropDownList></DropDownList>
-  <ButtonComponent></ButtonComponent>
-</div>
+  <div>
+    <DropDownList></DropDownList>
+    <ButtonComponent></ButtonComponent>
+  </div>
 </template>
 
 <style scoped>
