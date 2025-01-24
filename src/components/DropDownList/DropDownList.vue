@@ -24,15 +24,15 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div class="dropdown-panel">
     <div class="placeholder">
       <span>{{entitiesStore.getPlaceholder}}</span>
       <img src="../../assets/icon/Chevron.svg" alt="arrow-down" @click="isTriggeredDropDown = !isTriggeredDropDown"/>
     </div>
 
-    <div class="dropdown-panel" v-if="isTriggeredDropDown">
+    <div class=" options" v-if="isTriggeredDropDown">
       <div class="option" v-for="(option) in entitiesStore.getOptions" :key="option.key" @click="selectOption(option.key)">
-        <img src="../../assets/icon/select.png" alt="select">
+        <img src="../../assets/icon/select.png" alt="select" v-if="option.isSelected">
         <span>
         {{option.name}}
       </span>
@@ -43,6 +43,12 @@ export default defineComponent({
 </template>
 
 <style scoped>
+
+  .dropdown-panel {
+    position: relative;
+    width: 200px;
+    margin-right: 20px;
+  }
 
   .placeholder {
     padding: 10px;
@@ -65,13 +71,15 @@ export default defineComponent({
     }
   }
 
-  .dropdown-panel {
+  .options {
+    position: absolute;
     border: 1px solid #B0B0B0;
     border-radius: 4px;
     width: 200px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    z-index: 100;
 
     span {
       display: block;
@@ -88,11 +96,17 @@ export default defineComponent({
     display: flex;
     margin-bottom: 10px;
     padding: 10px;
+    position: relative;
 
     img {
       width: 12px;
       height: 12px;
-      margin-right: 5px;
+      position: absolute;
+      left: 5px;
+    }
+
+    span {
+      margin-left: 12px;
     }
   }
 

@@ -6,7 +6,7 @@ import {IEntity} from "@/models/entity-model";
 export const useEntitiesStore = defineStore('entitiesStore', {
     state: () => {
         return {
-            entityOptions: structuredClone(dropDown),
+            entityOptions: [...dropDown],
             createdEntities: [] as IEntity[],
         };
     },
@@ -24,11 +24,14 @@ export const useEntitiesStore = defineStore('entitiesStore', {
         },
         getKeySelectedEntity: (state) => {
             const foundEntity = state.entityOptions.find((element: IDropdown) => element.isSelected)
-            return foundEntity ? foundEntity.key : null
+            return foundEntity ? foundEntity.key : ''
         },
         getNameSelectedEntity: (state) => {
             const foundEntity = state.entityOptions.find((element: IDropdown) => element.isSelected)
             return foundEntity ? foundEntity.name : 'Не выбрано'
+        },
+        getEntities: (state) => {
+            return state.createdEntities
         }
     },
     actions: {
