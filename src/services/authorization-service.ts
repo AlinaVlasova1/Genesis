@@ -1,12 +1,10 @@
 import axios from "axios";
+import {IAccessTokenAndDomainResponse} from "@/models/access-token-and-domain-response-model";
+import {ApiUrlFactory} from "@/services/api-url-factory";
 
 export class AuthorizationService {
-    private proxy = `https://thingproxy.freeboard.io/fetch/`;
-    private readonly url = this.proxy + `https://app2.gnzs.ru/amocrm/test/oauth/get-token.php`;
-
-
-    getAccessToken(): Promise<{data: {access_token: string, base_domain: string} }> {
-        return axios.get(this.url.toString(),
+    getAccessToken(): Promise<IAccessTokenAndDomainResponse> {
+        return axios.get(ApiUrlFactory.baseUrl.toString(),
             {
                 headers: {
                     'X-Client-Id': 32185358

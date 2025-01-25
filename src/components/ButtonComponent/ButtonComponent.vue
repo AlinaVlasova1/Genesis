@@ -14,27 +14,16 @@ export default defineComponent({
 
     function createEntities() {
       isLoad.value = true;
-      const token = localStorage.getItem("token");
-      if (!token) {
-        authorizationService.getAccessToken().then(data => {
-          localStorage.setItem("token", data.data.access_token);
-          localStorage.setItem("domain", data.data.base_domain);
-        }).then(() => {
-          if (entitiesStore.getKeySelectedEntity) {
-            return entityService.createEntities(entitiesStore.getKeySelectedEntity)
-          } else {
-            return Promise.reject();
-          }
-        }).then((response: IEntityResponse) => {
-          const key: string = entitiesStore.getKeySelectedEntity
-          entitiesStore.addEntity({id: response.data._embedded[`${key as unknown as Option}`][0].id, name: entitiesStore.getNameSelectedEntity })
-        }).finally(() => (isLoad.value = false))
-      } else if (entitiesStore.getKeySelectedEntity) {
+      if (entitiesStore.getKeySelectedEntity) {
         entityService.createEntities(entitiesStore.getKeySelectedEntity).then((response: IEntityResponse) => {
           const key: string = entitiesStore.getKeySelectedEntity
           entitiesStore.addEntity({id: response.data._embedded[`${key as unknown as Option}`][0].id, name: entitiesStore.getNameSelectedEntity })
           isLoad.value = false;
-        }).finally(() => {
+        }).catch((err) => {
+          console.error(err);
+          alert(err)
+        }
+        ).finally(() => {
           isLoad.value = false
         })
       }
